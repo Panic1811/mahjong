@@ -9,62 +9,15 @@ class SettingsModal {
 
   show() {
     let panel = this.modal.makePanel(`settings`);
-    panel.innerHTML = `
-      <h3>Change the game settings</h3>
-      <p>
-        The follow settings change how the game works, but while
-        the first three options are related to playing the game,
-        all the other options are primarily intended for debugging.
-      </p>
-    `;
-    const options = this.getOptions();
-    const form = this.modal.buildPanelContent(options, true);
-    form.setAttribute("name", "settings");
-    form.setAttribute("action", "index.html");
-    form.setAttribute("method", "GET");
-    this.addFormControls(panel, form, options);
-    this.modal.addFooter(panel, "Closing without saving");
-  }
-
-  addFormControls(panel, form, options) {
-    const table = form.querySelector(`table`);
-    let row = document.createElement(`tr`);
-    row.classList.add(`spacer-1`);
-    row.innerHTML = `
-      <td>
-        <input id="reset" type="reset" value="Reset to default settings">
-      </td>
-      <td>
-        <input id="ok" type="submit" value="Play using these settings">
-      </td>
-    `;
-    table.appendChild(row);
-
-    form.addEventListener(`submit`, (evt) => {
-      evt.preventDefault();
-      let suffix = options
-        .filter((e) => e.value != e.default_value)
-        .map((e) => `${e.key}=${e.value}`)
-        .join("&");
-        globalThis.location.search = suffix ? `?${suffix}` : ``;
-    });
-
-    let ok = table.querySelector(`#ok`);
-    panel.gainFocus = () => ok.focus();
-
-    let reset = table.querySelector(`#reset`);
-    reset.addEventListener("click", (evt) => (globalThis.location.search = ""));
-  }
-
-  getOptions() {
-    const options = [
+    let options = [
       {
-        label: `Rules`,
-        key: `rules`,
-        options: [...Ruleset.getRulesetNames()],
-      },
-      {
-        // basic boolean flags:
+        label: "Ruleset",
+        key: "RULES",
+        value: config.RULES,
+        options: config.RULESETS,
+        handler: (entry, evt) => {
+          config.RULES = evt.target.value;
+        },
       },
       {
         label: `🀄 Always show everyone's tiles`,
@@ -80,9 +33,6 @@ class SettingsModal {
         label: `💬 Show bot play suggestions`,
         key: `show_bot_suggestion`,
         toggle: true,
-      },
-      {
-        // additional boolean flags:
       },
       {
         label: `🎵 Play sounds`,
@@ -117,9 +67,6 @@ class SettingsModal {
         debug_only: true,
       },
       {
-        // numerical values:
-      },
-      {
         label: `Set game PRNG seed`,
         key: `seed`,
         debug_only: true,
@@ -145,7 +92,6 @@ class SettingsModal {
         label: `Delay (in ms) during full bot play`,
         key: `bot_play_delay`,
       },
-      // and debug hacking
       {
         label: `Set up a specific wall`,
         key: `wall_hack`,
@@ -154,15 +100,15 @@ class SettingsModal {
       },
     ];
 
-    options.forEach((entry) => {
-      const { key } = entry;
-      if (key) {
-        const CONFIG_KEY = key.toUpperCase();
-        entry.value = config[CONFIG_KEY];
-        entry.default_value = config.DEFAULT_CONFIG[CONFIG_KEY];
-      }
+    this.modal.buildPanelContent(options);
+    this.modal.addFooter(panel, "Save", () => {
+      config.set(
+        options.reduce((obj, opt) => {
+          obj[opt.key] = opt.value;
+          return obj;
+        }, {})
+      );
     });
-    return options;
   }
 }
 

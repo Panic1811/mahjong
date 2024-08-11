@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mahjong, using standard HTML, CSS, and JavaScript</title>
+  <link rel="shortcut icon" type="image/jpeg" href="img/tiles/31.jpg">
+  <link rel="stylesheet" href="src/css/base-colors.css">
+  <link rel="stylesheet" href="src/css/colors.css">
+  <link rel="stylesheet" href="src/css/index.css">
+  <link rel="stylesheet" href="src/css/tutorial.css">
+  <script src="src/js/page/tiles-locknum.js" async></script>
+  <script src="src/js/page/play-or-watch.js" type="module"></script>
+  <script src="src/js/page/tutorial.js" type="module"></script>
+  <script src="src/js/tutorial.js" type="module"></script>
+</head>
+
+<body>
+  <br> <!-- because in rare cases, padding-top is overkill -->
+
+  <nav class="tabs">
+    <button class="tab-button active" data-tab="game">Game</button>
+    <button class="tab-button" data-tab="tutorial">Tutorial</button>
+  </nav>
+
+  <div id="game-tab" class="tab-content active">
+    <main class="board" tabindex="0">
+      <div class="players">
+        <div class="player" id="0" data-wincount="0" data-score="2000"></div>
+        <div class="player" id="1" data-wincount="0" data-score="2000"></div>
+        <div class="player" id="2" data-wincount="0" data-score="2000"></div>
+        <div class="player" id="3" data-wincount="0" data-score="2000"></div>
+      </div>
+
+      <div class="corner wall data"></div>
+      <div class="corner settings">settings...</div>
+      <div class="corner theming">theme</div>
+      <div class="discards"></div>
+      <div class="sidebar">
+        <div class="knowledge"></div>
+      </div>
+
+      <div class="windicator">
+        <div class="player-wind tc e">西</div>
+        <div class="player-wind rc">南</div>
+        <div class="player-wind bc">東</div>
+        <div class="player-wind lc">北</div>
+        <div class="wind-of-the-round">東　南　西　北</div>
+        <div class="hand-counter"></div>
+      </div>
+
+      <div class="hidden modal"></div>
+    </main>
+
+    <footer>
+      Written by <a target="_blank" nofollow href="https://mastodon.social/@TheRealPomax">Pomax</a>, project page
+      over on <a target="_blank" nofollow href="https://github.com/Pomax/mahjong">https://github.com/Pomax/mahjong</a>
+      <span class="fund">
+        [
+        <a target="_blank" nofollow href="https://github.com/Pomax/mahjong/issues">bugs/feedback</a>
+        ] [
+        <a target="_blank" nofollow
+          href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">support this project</a>
+        ]
+      </span>
+    </footer>
+  </div>
+
+  <div id="tutorial-tab" class="tab-content" style="display: none;">
+    <div class="tutorial-container">
+      <div class="sidebar">
+        <h3>Rule Sets</h3>
+        <div class="tutorial-tabs">
+          <button class="tutorial-tab" data-tutorial="chinese-classical">Traditional Chinese</button>
+          <button class="tutorial-tab" data-tutorial="cantonese">Cantonese</button>
+          <button class="tutorial-tab" data-tutorial="neha">Neha</button>
+        </div>
+        <div id="table-of-contents"></div>
+      </div>
+      <div id="tutorial-content"></div>
+    </div>
+  </div>
+</body>
+
+</html>

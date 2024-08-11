@@ -3,6 +3,7 @@ import { playlog } from "./js/core/utils/logger.js";
 
 import "./js/core/scoring/cantonese.js";
 import "./js/core/scoring/chinese-classical.js";
+import "./js/core/scoring/neha.js"; // Added this line
 
 const noop = () => {};
 const __console_debug = console.debug.bind(console);
@@ -20,7 +21,7 @@ const DEFAULT_CONFIG = {
   SEED: 0,
 
   // The ruleset to play with.
-  RULES: `Chinese Classical`,
+  RULES: "Chinese Classical", // Default ruleset
 
   // This determines whether you get asked to
   // choose normal vs. automated play when you
@@ -221,7 +222,7 @@ const TILE_GLYPHS = {
   10: "c2", // '🀈',
   11: "c3", // '🀉',
   12: "c4", // '🀊',
-  13: "c5", // '🀋',
+  13: "c5", // '',
   14: "c6", // '🀌',
   15: "c7", // '🀍',
   16: "c8", // '🀎',
@@ -313,8 +314,7 @@ const config = Object.assign(
     START_ON_DRAWS: 0,
 
     // For debugging purposes, we can tell
-    // the game to effectively pause play
-    // at the end of the following "draw".
+    // the game to pause play at the end of the following "draw".
     // A value of 0 means "don't pause".
     PAUSE_ON_DRAW: 0,
 
@@ -373,5 +373,8 @@ config.set({ DEBUG: currentConfig.DEBUG });
 
 config.log = playlog.log;
 config.flushLog = playlog.flush;
+
+// Add this to the config object
+config.RULESETS = ["Chinese Classical", "Cantonese", "Goulash (Neha)"];
 
 export { config, CLAIM,  Constants, TILE_NAMES, TILE_GLYPHS, SUIT_NAMES };

@@ -3,6 +3,7 @@ import { config } from "../../config.js";
 import { modal } from "../page/modal/modal.js";
 import { GameManager } from "../core/game/game-manager.js";
 import { rotateWinds } from "../core/players/ui/windicator.js";
+import '../page/tabs.js';
 
 // import { ClientUIMaster } from "../core/players/ui/client-ui-master.js";
 
@@ -41,6 +42,8 @@ import { rotateWinds } from "../core/players/ui/windicator.js";
 
   // Optional bot play.
   function offerChoice() {
+    document.getElementById('game-tab').style.display = 'block';
+    document.getElementById('tutorial-tab').style.display = 'none';
     const options = [
       { description: "There are currently two modes of play on offer:" },
       { label: "I'd like to play some mahjong!", value: "play" },
