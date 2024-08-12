@@ -23,4 +23,9 @@ export class Rules {
     calculateScore(hand) {
         // Implement generic scoring logic
     }
+
+    checkForLimit(hand) {
+        // This is a placeholder method that should be overridden by specific rulesets
+        return null;
+    }
 }

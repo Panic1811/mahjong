@@ -1,5 +1,5 @@
 import { Player } from "../players/player.js";
-import { Ruleset } from "../scoring/ruleset.js";
+import { RulesFactory } from "../rules/rules-factory.js";
 import { Wall } from "./wall/wall.js";
 import { CLAIM } from "../../../config.js";
 import { modal } from "../../page/modal/modal.js";
@@ -35,7 +35,7 @@ class Game {
     this.totalDraws = 0;
     this.totalPlays = 0;
     this.finish = whenDone;
-    this.rules = Ruleset.getRuleset(config.RULES);
+    this.rules = RulesFactory.create(config.RULES);
 
     let players = this.players;
 
